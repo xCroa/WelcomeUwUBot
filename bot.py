@@ -5,7 +5,7 @@ TOKEN_BOT = '1023777751:AAE6YfdkFZH9rQgEQC1mAc-0YUWzMlXmw6E'
 bot = telepot.Bot(TOKEN_BOT)
 
 def handle(msg):
-    content_type, chat_type, chat_id = telepot.glance(msg)
+    content_type, chat_type, chat_id = telepot.glance(msg)    
     if 'new_chat_member' in msg:        
         new_user = msg['new_chat_member']['id']
         user_name = msg['new_chat_member']['first_name']
@@ -14,6 +14,8 @@ def handle(msg):
         reply_text = 'Welcome, ' + inline_user_mention + ' ' + senko_san_link + '!!'
 
         bot.sendMessage(chat_id, reply_text, 'HTML', False, False, msg['message_id'])
+
+    bot.sendMessage(chat_id, 'Teste')
 
 bot.message_loop(handle)
 
