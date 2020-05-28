@@ -11,7 +11,7 @@ def handle(msg):
         user_name = msg['new_chat_member']['first_name']
         inline_user_mention = '<a href="tg://user?id=' + str(new_user) +'">'+ user_name +'</a>'        
         senko_san_link = '<a href="https://i.imgur.com/lw7Z1mL.mp4">UwU</a>'        
-        reply_text = 'Welcome, ' + inline_user_mention + ' ' + senko_san_link + '!'
+        reply_text = 'Welcome, ' + inline_user_mention + ' ' + senko_san_link + '!!'
 
         bot.sendMessage(chat_id, reply_text, 'HTML', False, False, msg['message_id'])
 
