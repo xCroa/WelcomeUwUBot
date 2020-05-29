@@ -23,9 +23,9 @@ def start(update, context):
 def echo(update, context):
     bot = context.bot
     url = 'https://i.imgur.com/lw7Z1mL.mp4'#helpers.create_deep_linked_url(bot.get_me().username, USING_ENTITIES)
-    text = "You can also mask the deep-linked URLs as links: " \
+    text = "Welcome, " \
            "[UwU]({0}).".format(url)
-    update.message.reply_text(text, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True)    
+    update.message.reply_text(text, parse_mode=ParseMode.MARKDOWN)    
 
 def main():
     #"""Start the bot."""
@@ -41,7 +41,7 @@ def main():
     dp.add_handler(CommandHandler("start", start))    
 
     # on noncommand i.e message - echo the message on Telegram
-    dp.add_handler(MessageHandler(Filters.text, echo))
+    dp.add_handler(MessageHandler(Filters.new_chat_members, echo))
 
     # Start the Bot
     updater.start_webhook(listen="0.0.0.0",
