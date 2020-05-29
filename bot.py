@@ -1,23 +1,28 @@
+from flask import Flask, request
 import telepot
 
-TOKEN_BOT = '1023777751:AAE6YfdkFZH9rQgEQC1mAc-0YUWzMlXmw6E'
+try:
+    from Queue import Queue
+except ImportError:
+    from queue import Queue
 
-bot = telepot.Bot(TOKEN_BOT)
+app = Flask(__name__)
+TOKEN = os.environ['PP_BOT_TOKEN']  # put your token in heroku app as environment variable
+SECRET = '/bot' + TOKEN
+URL = '' #  paste the url of your application
 
-def handle(msg):
-    content_type, chat_type, chat_id = telepot.glance(msg)    
-    if 'new_chat_member' in msg:        
-        new_user = msg['new_chat_member']['id']
-        user_name = msg['new_chat_member']['first_name']
-        inline_user_mention = '<a href="tg://user?id=' + str(new_user) +'">'+ user_name +'</a>'        
-        senko_san_link = '<a href="https://i.imgur.com/lw7Z1mL.mp4">UwU</a>'        
-        reply_text = 'Welcome, ' + inline_user_mention + ' ' + senko_san_link + '!!'
+UPDATE_QUEUE = Queue()
+BOT = telepot.Bot(TOKEN)
 
-        bot.sendMessage(chat_id, reply_text, 'HTML', False, False, msg['message_id'])
+def on_chat_message(msg):
+    content_type, chat_type, chat_id = telepot.glance(msg)
+    BOT.sendMessage(chat_id, 'hello!')
 
-    bot.sendMessage(chat_id, 'Teste')
+BOT.message_loop({'chat': on_chat_message}, source=UPDATE_QUEUE)  # take updates from queue
 
-bot.message_loop(handle)
+@app.route(SECRET, methods=['GET', 'POST'])
+def pass_update():
+    UPDATE_QUEUE.put(request.data)  # pass update to bot
+    return 'OK'
 
-while True:
-    pass
+BOT.setWebhook(URL + SECRET) # unset if was set previously
