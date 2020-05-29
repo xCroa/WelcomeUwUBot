@@ -1,7 +1,6 @@
 import logging
-from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
+from telegram import ParseMode
 from telegram.ext import Updater, CommandHandler, Filters, MessageHandler
-from telegram.utils import helpers
 import os
 
 
@@ -12,18 +11,18 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
                     level=logging.INFO)
 
 logger = logging.getLogger(__name__)
-TOKEN = '1023777751:AAE6YfdkFZH9rQgEQC1mAc-0YUWzMlXmw6E'
+TOKEN = os.environ['PP_BOT_TOKEN']
 PORT = int(os.environ.get('PORT', 5000))
+BOT_URL = os.environ['BOT_URL']
 
 # Define a few command handlers. These usually take the two arguments update and
 # context. Error handlers also receive the raised TelegramError object in error.
 def start(update, context):    
-    update.message.reply_text('Este bot envia um gif de bem vindo quando o grupo ganha novos integrantes!')
-    print(os.environ)
+    update.message.reply_text('Este bot envia um gif de bem vindo quando o grupo ganha novos integrantes!')    
 
 def echo(update, context):    
     bot = context.bot
-    url = '(https://i.imgur.com/lw7Z1mL.mp4)'#helpers.create_deep_linked_url(bot.get_me().username, USING_ENTITIES)        
+    url = '(https://i.imgur.com/lw7Z1mL.mp4)'
     user_id_mention = '(tg://user?id=' + str(update.message.new_chat_members[0].id) + ')'
     text = 'Welcome, ['+ update.message.new_chat_members[0].first_name +']' + user_id_mention + ', [UwU]' + url + '!'
     update.message.reply_text(text, parse_mode=ParseMode.MARKDOWN)    
@@ -48,7 +47,7 @@ def main():
     updater.start_webhook(listen="0.0.0.0",
                           port=int(PORT),
                           url_path=TOKEN)
-    updater.bot.setWebhook('https://welcomeuwubot.herokuapp.com/' + TOKEN)
+    updater.bot.setWebhook(BOT_URL + TOKEN)
 
     # Run the bot until you press Ctrl-C or the process receives SIGINT,
     # SIGTERM or SIGABRT. This should be used most of the time, since
