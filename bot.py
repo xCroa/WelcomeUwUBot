@@ -41,7 +41,7 @@ def main():
     dp.add_handler(CommandHandler("start", start))    
 
     # on noncommand i.e message - echo the message on Telegram
-    dp.add_handler(MessageHandler(Filters.new_chat_members, echo))
+    dp.add_handler(MessageHandler(Filters.status_update.new_chat_members, echo))
 
     # Start the Bot
     updater.start_webhook(listen="0.0.0.0",
