@@ -19,6 +19,7 @@ PORT = int(os.environ.get('PORT', 5000))
 # context. Error handlers also receive the raised TelegramError object in error.
 def start(update, context):    
     update.message.reply_text('Este bot envia um gif de bem vindo quando o grupo ganha novos integrantes!')
+    print(os.environ)
 
 def echo(update, context):    
     bot = context.bot
