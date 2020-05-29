@@ -1,5 +1,6 @@
 from flask import Flask, request
 import telepot
+import time
 
 try:
     from Queue import Queue
@@ -26,3 +27,6 @@ def pass_update():
     return 'OK'
 
 BOT.setWebhook(URL + SECRET) # unset if was set previously
+
+While True:
+    time.sleep(1)
