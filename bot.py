@@ -25,8 +25,9 @@ BOT.message_loop({'chat': on_chat_message}, source=UPDATE_QUEUE)  # take updates
 def pass_update():
     UPDATE_QUEUE.put(request.data)  # pass update to bot
     return 'OK'
+    
+while True:
+    time.sleep(1000)
 
 BOT.setWebhook(URL + SECRET) # unset if was set previously
 
-while True:
-    time.sleep(1)
