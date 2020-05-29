@@ -15,21 +15,15 @@ PORT = int(os.environ.get('PORT', 5000))
 
 # Define a few command handlers. These usually take the two arguments update and
 # context. Error handlers also receive the raised TelegramError object in error.
-def start(update, context):
-    #"""Send a message when the command /start is issued."""
-    update.message.reply_text('Hi!')
-
-def help(update, context):
-    #"""Send a message when the command /help is issued."""
-    update.message.reply_text('Help!')
+def start(update, context):    
+    update.message.reply_text('Este bot envia um gif de bem vindo quando o grupo ganha novos integrantes!')
 
 def echo(update, context):
-    #"""Echo the user message."""
-    update.message.reply_text(update.message.text)
-
-def error(update, context):
-    #"""Log Errors caused by Updates."""
-    logger.warning('Update "%s" caused error "%s"', update, context.error)
+    bot = context.bot
+    url = helpers.create_deep_linked_url(bot.get_me().username, USING_ENTITIES)
+    text = "You can also mask the deep-linked URLs as links: " \
+           "[UwU]({0}).".format(url)
+    update.message.reply_text(text, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True)    
 
 def main():
     #"""Start the bot."""
@@ -42,14 +36,10 @@ def main():
     dp = updater.dispatcher
 
     # on different commands - answer in Telegram
-    dp.add_handler(CommandHandler("start", start))
-    dp.add_handler(CommandHandler("help", help))
+    dp.add_handler(CommandHandler("start", start))    
 
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.text, echo))
-
-    # log all errors
-    dp.add_error_handler(error)
 
     # Start the Bot
     updater.start_webhook(listen="0.0.0.0",
