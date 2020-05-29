@@ -23,7 +23,7 @@ def start(update, context):
 def echo(update, context):
     bot = context.bot
     url = '(https://i.imgur.com/lw7Z1mL.mp4)'#helpers.create_deep_linked_url(bot.get_me().username, USING_ENTITIES)        
-    user_id_mention = '(tg://user?id=' + update.message.user.id + ')'
+    user_id_mention = '(tg://user?id=' + str(update.message.new_chat_members[0].id) + ')'
     text = 'Welcome, ['+ update.message.user.first_name +']' + user_id_mention + '[UwU]' + url + '!'
     update.message.reply_text(text, parse_mode=ParseMode.MARKDOWN)    
 
