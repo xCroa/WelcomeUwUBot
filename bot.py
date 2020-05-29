@@ -7,7 +7,7 @@ except ImportError:
     from queue import Queue
 
 app = Flask(__name__)
-TOKEN = os.environ['PP_BOT_TOKEN']  # put your token in heroku app as environment variable
+TOKEN = '1023777751:AAE6YfdkFZH9rQgEQC1mAc-0YUWzMlXmw6E'#os.environ['PP_BOT_TOKEN']  # put your token in heroku app as environment variable
 SECRET = '/bot' + TOKEN
 URL = '' #  paste the url of your application
 
