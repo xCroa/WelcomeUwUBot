@@ -22,7 +22,7 @@ def start(update, context):
 
 def echo(update, context):
     bot = context.bot
-    url = helpers.create_deep_linked_url(bot.get_me().username, USING_ENTITIES)
+    url = 'https://i.imgur.com/lw7Z1mL.mp4'#helpers.create_deep_linked_url(bot.get_me().username, USING_ENTITIES)
     text = "You can also mask the deep-linked URLs as links: " \
            "[UwU]({0}).".format(url)
     update.message.reply_text(text, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True)    
