@@ -50,7 +50,7 @@ def main():
     dp.add_handler(MessageHandler(Filters.status_update.new_chat_members, echo))
 
     # on Welcome command
-    dp.add_handler(CommandHandler("welcome", start))    
+    dp.add_handler(CommandHandler("welcome", welcomeCommand))    
 
     # Start the Bot
     updater.start_webhook(listen="0.0.0.0",
