@@ -27,6 +27,12 @@ def echo(update, context):
     text = 'Welcome, ['+ update.message.new_chat_members[0].first_name +']' + user_id_mention + ', [UwU]' + url + '!'
     update.message.reply_text(text, parse_mode=ParseMode.MARKDOWN)    
 
+def welcomeCommand(update, context):
+    bot = context.bot
+    url = '(https://i.imgur.com/lw7Z1mL.mp4)'    
+    text = '[UwU]' + url + '!'
+    update.message.reply_text(text, parse_mode=ParseMode.MARKDOWN)        
+
 def main():
     #"""Start the bot."""
     # Create the Updater and pass it your bot's token.
@@ -42,6 +48,9 @@ def main():
 
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.status_update.new_chat_members, echo))
+
+    # on Welcome command
+    dp.add_handler(CommandHandler("welcome", start))    
 
     # Start the Bot
     updater.start_webhook(listen="0.0.0.0",
